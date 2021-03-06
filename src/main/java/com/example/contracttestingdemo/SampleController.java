@@ -19,7 +19,6 @@ public class SampleController {
         this.serviceUrl = serviceUrl;
     }
 
-
     @GetMapping("/sample/api")
     public String isNumberPrime(@RequestParam("id") String id) {
         ServiceResponse serviceResponse = restTemplate.getForObject(serviceUrl + "/" + id, ServiceResponse.class);
