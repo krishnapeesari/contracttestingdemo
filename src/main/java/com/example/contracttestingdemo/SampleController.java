@@ -20,7 +20,7 @@ public class SampleController {
     }
 
     @GetMapping("/sample/api")
-    public String isNumberPrime(@RequestParam("id") String id) {
+    public String sampleApi(@RequestParam("id") String id) {
         ServiceResponse serviceResponse = restTemplate.getForObject(serviceUrl + "/" + id, ServiceResponse.class);
         assert serviceResponse != null;
         return serviceResponse.getData().getFirstName() + " " + serviceResponse.getData().getLastName();
