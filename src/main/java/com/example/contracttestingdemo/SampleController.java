@@ -19,11 +19,11 @@ public class SampleController {
         this.serviceUrl = serviceUrl;
     }
 
-
-    @GetMapping("/sample/api")
-    public String isNumberPrime(@RequestParam("id") String id) {
+    @GetMapping(value = "/sample/api", produces = "application/json")
+    public User sampleApi(@RequestParam("id") String id) {
         ServiceResponse serviceResponse = restTemplate.getForObject(serviceUrl + "/" + id, ServiceResponse.class);
         assert serviceResponse != null;
-        return serviceResponse.getData().getFirstName() + " " + serviceResponse.getData().getLastName();
+        final Data data = serviceResponse.getData();
+        return new User(data.getId(), data.getFirstName(), data.getLastName());
     }
 }
