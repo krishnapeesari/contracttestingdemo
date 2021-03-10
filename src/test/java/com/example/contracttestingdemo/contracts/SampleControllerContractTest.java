@@ -8,13 +8,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.io.IOException;
+
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SampleControllerContractTest extends ContractVerifierBase {
 
     @Test
-    void testSampleApi() {
+    void testSampleApi() throws IOException {
         WireMock.stubFor(WireMock.get(WireMock.urlPathEqualTo("/api/users/2")).willReturn(
                 WireMock.aResponse()
                         .withStatus(200)
@@ -32,9 +34,9 @@ class SampleControllerContractTest extends ContractVerifierBase {
         final MockMvcResponse response = given().spec(request)
                 .get("/sample/api");
 
-        final String expectedResponse = "{\"id\":2,\"firstName\":\"Krishna\",\"lastName\":\"Peesari\"}";
         System.out.println(response.statusCode());
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getBody().asString()).isEqualTo(expectedResponse);
+
+        validateResponse("/contract-response/sampleApiResponse.json", response.getBody().asString());
     }
 }
