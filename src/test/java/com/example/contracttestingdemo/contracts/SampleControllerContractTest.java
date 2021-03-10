@@ -21,11 +21,14 @@ class SampleControllerContractTest extends ContractVerifierBase {
                 WireMock.aResponse()
                         .withStatus(200)
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .withBody("{\"data\":{"
+                        .withBody("{" +
+                                "\"data\":{"
                                 + "\"id\":2,"
+                                + "\"email\":\"krishna.peesari@gmail.com\","
                                 + "\"first_name\":\"Krishna\","
-                                + "\"last_name\":\"Peesari\"}}")
-        ));
+                                + "\"last_name\":\"Peesari\","
+                                + "\"avatar\":\"https://reqres.in/img/faces/2-image.jpg\"}}"
+                        )));
 
         final MockMvcRequestSpecification request = given()
                 .header("Content-Type", "application/json")
